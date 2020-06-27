@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Tile : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class Tile : MonoBehaviour
     public GameObject tile; //Original tile
     public List<Vector2> numberOfTimes; //List used to count the amount of times 2 is generated
     public float currentTime;
+    public bool isNumberEqual = false;
+    public GameObject youWonPanel;
+    public GameObject youLosePanel;
    
 
     void Start()
@@ -51,22 +56,38 @@ public class Tile : MonoBehaviour
 
     void CoverUp()
     {
-        //if (numberOfTimes.Count == 1) 
-        //{
-        //    Vector2 place = numberOfTimes[0];
-        //    Instantiate(tile, place, Quaternion.identity);
-        //}
-        //else 
-        //{
-            for (int i = 0; i < numberOfTimes.Count; i++)
-            {
-                Vector2 places = numberOfTimes[i];
-                Instantiate(tile, places, Quaternion.identity);
-            }
-       // }
-
-
-
+        
+       for (int i = 0; i < numberOfTimes.Count; i++)
+       {
+           Vector2 places = numberOfTimes[i];
+           Instantiate(tile, places, Quaternion.identity);
+       }
     }
 
+   public void SubmitNumber()
+   {
+        string number = GameObject.Find("InputField").GetComponent<InputField>().text;
+        int num = int.Parse(number);
+
+        if(num == numberOfTimes.Count)
+        {
+            YouWon();
+        }
+        else
+        {
+            YouLose();
+        }
+    }
+
+    void YouWon()
+    {
+        isNumberEqual = true;
+        youWonPanel.SetActive(true);
+    }
+
+    void YouLose()
+    {
+        isNumberEqual = false;
+        youLosePanel.SetActive(true);
+    }
 }

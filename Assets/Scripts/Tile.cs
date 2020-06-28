@@ -51,8 +51,8 @@ public class Tile : MonoBehaviour
     private IEnumerator Spawn()
     {
         
-        InvokeRepeating("Spawner", 0.04f, Random.Range(0.08f, 1)); //Spawns the number
-        InvokeRepeating("CoverUp", 1.0f, Random.Range(0.08f, 1)); //Covers the number
+        InvokeRepeating("Spawner", 0.04f,Random.Range(0.5f, 1)); //Spawns the number
+        InvokeRepeating("CoverUp", 1.0f,Random.Range(0.5f, 1)); //Covers the number
         yield return null;
     }
     void Spawner()

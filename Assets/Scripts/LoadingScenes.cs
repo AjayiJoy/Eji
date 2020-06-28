@@ -12,8 +12,8 @@ public class LoadingScenes : MonoBehaviour
 
     public void OnQuit()
     {
-        Debug.Log("Game Quit");
-        //Application.Quit();
+        //Debug.Log("Game Quit");
+        Application.Quit();
     }
 
     public void BackButton()

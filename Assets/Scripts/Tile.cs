@@ -12,19 +12,27 @@ public class Tile : MonoBehaviour
     public GameObject no2; //Game object containing the sprite to be generated
     public GameObject tile; //Original tile
     public List<Vector2> numberOfTimes; //List used to count the amount of times 2 is generated
-    public float currentTime;
-    public bool isNumberEqual = false;
+    public float currentTime; //Counts the seconds of gameplay
     public GameObject youWonPanel;
-    public GameObject youLosePanel;
+    public GameObject youLosePanel; 
+    public GameObject gamePanel; //Question field
+    public GameObject timePanel;
+    public Text countdown;
+    public float timeLast = 5.1f;
+    public int tl;
    
 
     void Start()
     {
         StartCoroutine(Spawn());
+        countdown.text = " "+ tl; 
     }
 
     void Update()
     {
+        timeLast -= Time.deltaTime;
+        tl = (int)timeLast;
+        countdown.text = " " + tl; //Display sountdown on the screen
         currentTime += Time.deltaTime; //Counts the amount of second spent in the game
         if (currentTime >= 5.0f)
         {
@@ -34,6 +42,8 @@ public class Tile : MonoBehaviour
         if (currentTime >= 5.1f)
         {
             CancelInvoke("CoverUp");
+            gamePanel.SetActive(true);
+            timePanel.SetActive(false); 
         }
     }
    
@@ -41,8 +51,8 @@ public class Tile : MonoBehaviour
     private IEnumerator Spawn()
     {
         
-        InvokeRepeating("Spawner", 0.04f, 1); //Spawns the number
-        InvokeRepeating("CoverUp", 1.0f, 1); //Covers the number
+        InvokeRepeating("Spawner", 0.04f, Random.Range(0.08f, 1)); //Spawns the number
+        InvokeRepeating("CoverUp", 1.0f, Random.Range(0.08f, 1)); //Covers the number
         yield return null;
     }
     void Spawner()
@@ -59,8 +69,8 @@ public class Tile : MonoBehaviour
         
        for (int i = 0; i < numberOfTimes.Count; i++)
        {
-           Vector2 places = numberOfTimes[i];
-           Instantiate(tile, places, Quaternion.identity);
+           Vector2 place = numberOfTimes[i];
+           Instantiate(tile, place, Quaternion.identity);
        }
     }
 
@@ -81,13 +91,15 @@ public class Tile : MonoBehaviour
 
     void YouWon()
     {
-        isNumberEqual = true;
+        gamePanel.SetActive(false);
         youWonPanel.SetActive(true);
     }
 
     void YouLose()
     {
-        isNumberEqual = false;
-        youLosePanel.SetActive(true);
+        SceneManager.LoadScene("MenuScene");
+       // youLosePanel.SetActive(true);
+        //gamePanel.SetActive(false);
+        //isNumberEqual = false;
     }
 }

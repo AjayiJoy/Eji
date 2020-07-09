@@ -21,7 +21,14 @@ public class LoadingScenes : MonoBehaviour
         SceneManager.LoadScene("MenuScene");
     }
 
-    
+    public void Replay()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
 
+    public void Exit()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
     
 }

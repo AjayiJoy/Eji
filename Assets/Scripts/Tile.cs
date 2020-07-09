@@ -20,6 +20,8 @@ public class Tile : MonoBehaviour
     public Text countdown;
     public float timeLast = 5.1f;
     public int tl;
+    public Text totalText;
+    public Text loseText;
    
 
     void Start()
@@ -92,14 +94,15 @@ public class Tile : MonoBehaviour
     void YouWon()
     {
         gamePanel.SetActive(false);
+        totalText.text = ""+ numberOfTimes.Count;
         youWonPanel.SetActive(true);
     }
 
     void YouLose()
     {
-        SceneManager.LoadScene("MenuScene");
-       // youLosePanel.SetActive(true);
-        //gamePanel.SetActive(false);
-        //isNumberEqual = false;
+        youLosePanel.SetActive(true);
+        loseText.text = "" + numberOfTimes.Count;
+        gamePanel.SetActive(false);
+        
     }
 }

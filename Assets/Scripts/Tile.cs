@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+
 
 public class Tile : MonoBehaviour
 {
@@ -20,9 +20,9 @@ public class Tile : MonoBehaviour
     public Text countdown;
     public float timeLast = 5.1f;
     public int tl;
-    public Text totalText;
+    public Text wonText;
     public Text loseText;
-   
+    public int i = 0;
 
     void Start()
     {
@@ -34,14 +34,14 @@ public class Tile : MonoBehaviour
     {
         timeLast -= Time.deltaTime;
         tl = (int)timeLast;
-        countdown.text = " " + tl; //Display sountdown on the screen
+        countdown.text = "" + tl; //Display sountdown on the screen
         currentTime += Time.deltaTime; //Counts the amount of second spent in the game
         if (currentTime >= 5.0f)
         {
             CancelInvoke("Spawner");// stops the spawning
         }
 
-        if (currentTime >= 5.1f)
+        if (currentTime >= 5.5f)
         {
             CancelInvoke("CoverUp");
             gamePanel.SetActive(true);
@@ -68,12 +68,9 @@ public class Tile : MonoBehaviour
 
     void CoverUp()
     {
-        
-       for (int i = 0; i < numberOfTimes.Count; i++)
-       {
            Vector2 place = numberOfTimes[i];
            Instantiate(tile, place, Quaternion.identity);
-       }
+        i++;
     }
 
    public void SubmitNumber()
@@ -94,7 +91,7 @@ public class Tile : MonoBehaviour
     void YouWon()
     {
         gamePanel.SetActive(false);
-        totalText.text = ""+ numberOfTimes.Count;
+        wonText.text = ""+ numberOfTimes.Count;
         youWonPanel.SetActive(true);
     }
 
